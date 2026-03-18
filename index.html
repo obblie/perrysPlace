@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Perry's Place apartment listing in Crown Heights, Brooklyn." />
+    <title>Perry's Place | Crown Heights, Brooklyn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="topbar" aria-label="Primary navigation">
+      <div class="container topbar-inner">
+        <a class="brand" href="#hero">Perry's Place</a>
+        <nav class="nav-links" aria-label="Section navigation">
+          <a href="#gallery">Gallery</a>
+          <a href="#overview">Overview</a>
+          <a href="#features">Features</a>
+          <a href="#contact">Inquire</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="hero" class="hero" aria-labelledby="hero-title">
+        <div class="hero-image-wrap">
+          <img id="heroImage" class="hero-image" alt="Perry's Place featured image" loading="eager" />
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="container hero-content">
+          <p class="eyebrow">Furnished Studio | Crown Heights, Brooklyn</p>
+          <h1 id="hero-title">Perry's Place</h1>
+          <!-- Replace this headline/subheadline with final marketing copy -->
+          <p class="hero-headline">Bright top-floor studio with exposed brick, high ceilings, and a newly renovated kitchen.</p>
+          <p class="hero-subheadline">$149/day with flexible duration options available upon request - Price negotiable for longer stays.</p>
+          <div class="hero-cta-row">
+            <a class="btn btn-primary" href="#contact">Schedule a Tour</a>
+            <a class="btn btn-secondary" href="#gallery">View Photos</a>
+          </div>
+          <ul class="hero-stats" aria-label="Key property details">
+            <li><span>Type</span><strong>Studio</strong></li>
+            <li><span>Transit</span><strong>5-min to Franklin Ave</strong></li>
+            <li><span>Utilities</span><strong>Included</strong></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="gallery" class="section gallery" aria-labelledby="gallery-title">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Visual Tour</p>
+            <h2 id="gallery-title">Photo Gallery</h2>
+          </div>
+          <div class="carousel" aria-label="Property image carousel">
+            <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
+            <div id="carouselTrack" class="carousel-track" role="region" aria-live="polite"></div>
+            <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
+          </div>
+          <div id="carouselIndicators" class="carousel-indicators" aria-label="Image indicators"></div>
+          <div id="carouselThumbs" class="carousel-thumbs" aria-label="Image thumbnails"></div>
+          <p id="galleryFallback" class="gallery-fallback" hidden>
+            No images found in <code>public/</code>. Add JPG/PNG/WebP files to populate the gallery.
+          </p>
+        </div>
+      </section>
+
+      <section id="overview" class="section" aria-labelledby="overview-title">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">At a Glance</p>
+            <h2 id="overview-title">Property Overview</h2>
+          </div>
+          <div class="overview-grid">
+            <article class="card overview-copy">
+              <!-- Replace this text block with finalized listing summary copy -->
+              <p>
+                My fully furnished studio has high ceilings, all-day bright sunlight, exposed brick walls, hardwood
+                floors, and a huge newly renovated kitchen. It's on the 4th floor (top-floor walkup) of a beautiful
+                pre-war building in a very green and spacious part of Crown Heights.
+              </p>
+              <p>
+                Utilities are included in rent, and the space is designed to feel beautiful, convenient, and fun for
+                both short and flexible stays.
+              </p>
+            </article>
+            <aside class="card selling-points" aria-label="Key selling points">
+              <!-- Replace bullet content with final key selling points -->
+              <ul>
+                <li>Top-floor pre-war studio with all-day sunlight</li>
+                <li>Exposed brick + hardwood floors for classic Brooklyn character</li>
+                <li>Newly renovated large kitchen</li>
+                <li>Laundry available in the building basement</li>
+                <li>Flexible dates and rental duration options</li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="section section-soft" aria-labelledby="features-title">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Comfort & Function</p>
+            <h2 id="features-title">Features & Amenities</h2>
+          </div>
+          <div class="features-grid">
+            <!-- Replace each card label with final feature names -->
+            <article class="feature-card"><h3>High Ceilings</h3><p>Airy layout with generous vertical space.</p></article>
+            <article class="feature-card"><h3>Bright Sunlight</h3><p>Natural light throughout most of the day.</p></article>
+            <article class="feature-card"><h3>Renovated Kitchen</h3><p>Large updated kitchen ideal for daily living.</p></article>
+            <article class="feature-card"><h3>Hardwood Floors</h3><p>Warm finishes and durable surfaces throughout.</p></article>
+            <article class="feature-card"><h3>Laundry Access</h3><p>Convenient laundry in the building basement.</p></article>
+            <article class="feature-card"><h3>Pet-Friendly</h3><p>Building allows pets; details discussed case by case.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="details" class="section" aria-labelledby="details-title">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Flexible Layout</p>
+            <h2 id="details-title">Floor Plan & Rental Details</h2>
+          </div>
+          <div class="details-grid">
+            <article class="card">
+              <h3>Unit Snapshot</h3>
+              <!-- Replace values below with final approved unit specs -->
+              <dl class="spec-list">
+                <div><dt>Unit Type</dt><dd>Furnished Studio</dd></div>
+                <div><dt>Building</dt><dd>Pre-War Walkup (4th Floor)</dd></div>
+                <div><dt>Base Rate</dt><dd>$149 / Day</dd></div>
+                <div><dt>Utilities</dt><dd>Included</dd></div>
+              </dl>
+            </article>
+            <article class="card">
+              <h3>Rental Terms</h3>
+              <!-- Replace with final legal/rental language -->
+              <p>
+                Flexible on dates and duration. Owner can provide a written rental agreement and receive payment upon
+                arrival. Additional documentation can be discussed so both parties feel comfortable.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="neighborhood" class="section section-soft" aria-labelledby="neighborhood-title">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Location</p>
+            <h2 id="neighborhood-title">Neighborhood Highlights</h2>
+          </div>
+          <div class="neighborhood-grid">
+            <article class="card">
+              <!-- Replace with final neighborhood copy -->
+              <p>
+                Located in Crown Heights with quick access to Manhattan: a 5-minute walk to Franklin Avenue (2/3/4/5)
+                and one stop from Atlantic Ave / Barclays. Walk to the Brooklyn Museum, Brooklyn Botanic Garden, and
+                Prospect Park in about 10 minutes.
+              </p>
+              <p>
+                Two blocks from standout Franklin Avenue restaurants and one block from Nostrand Avenue's vibrant
+                Caribbean food scene.
+              </p>
+            </article>
+            <aside class="card map-placeholder" aria-label="Map placeholder">
+              <h3>Map Placeholder</h3>
+              <!-- Replace with embedded map or location image in next stage -->
+              <p>Crown Heights, Brooklyn, NY</p>
+              <span>Transit-rich, walkable, and park-adjacent</span>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section contact" aria-labelledby="contact-title">
+        <div class="container">
+          <div class="contact-panel">
+            <div>
+              <p class="eyebrow">Inquire Now</p>
+              <h2 id="contact-title">Schedule a Tour or Request Availability</h2>
+              <p>
+                <!-- Replace with final CTA copy -->
+                Share your preferred dates and duration. We can confirm fit, discuss terms, and finalize your stay.
+              </p>
+            </div>
+            <form class="inquiry-form" action="#" method="post" aria-label="Inquiry form">
+              <!-- Wire this form to your preferred contact workflow later -->
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Your full name" />
+
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" />
+
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="4" placeholder="Dates, duration, and questions"></textarea>
+
+              <button class="btn btn-primary" type="submit">Send Inquiry</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p>&copy; <span id="year"></span> Perry's Place</p>
+        <!-- Replace with final listing/license/contact footer details -->
+        <p>Crown Heights, Brooklyn | Owner/landlord listing</p>
+      </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
