@@ -1,4 +1,6 @@
 const IMAGE_EXT = /\.(avif|webp|png|jpe?g|gif)$/i;
+const AUTO_ADVANCE_MS = 7000;
+let autoAdvanceTimer = null;
 
 const state = {
   images: [],
@@ -114,8 +116,14 @@ function goTo(index) {
 }
 
 function bindCarouselEvents() {
-  prevBtn.addEventListener("click", () => goTo(state.current - 1));
-  nextBtn.addEventListener("click", () => goTo(state.current + 1));
+  prevBtn.addEventListener("click", () => {
+    goTo(state.current - 1);
+    startAutoAdvance();
+  });
+  nextBtn.addEventListener("click", () => {
+    goTo(state.current + 1);
+    startAutoAdvance();
+  });
 
   track.addEventListener("touchstart", (e) => {
     state.touchStartX = e.changedTouches[0].clientX;
@@ -126,12 +134,32 @@ function bindCarouselEvents() {
     if (Math.abs(dx) < 40) return;
     if (dx < 0) goTo(state.current + 1);
     else goTo(state.current - 1);
+    startAutoAdvance();
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") goTo(state.current - 1);
-    if (e.key === "ArrowRight") goTo(state.current + 1);
+    if (e.key === "ArrowLeft") {
+      goTo(state.current - 1);
+      startAutoAdvance();
+    }
+    if (e.key === "ArrowRight") {
+      goTo(state.current + 1);
+      startAutoAdvance();
+    }
   });
+}
+
+function startAutoAdvance() {
+  if (autoAdvanceTimer) {
+    window.clearInterval(autoAdvanceTimer);
+    autoAdvanceTimer = null;
+  }
+
+  if (state.images.length < 2) return;
+
+  autoAdvanceTimer = window.setInterval(() => {
+    goTo(state.current + 1);
+  }, AUTO_ADVANCE_MS);
 }
 
 function bindEmailReveal() {
@@ -183,6 +211,7 @@ async function init() {
 
   renderCarousel();
   bindCarouselEvents();
+  startAutoAdvance();
 }
 
 init();

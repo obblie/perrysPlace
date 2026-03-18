@@ -167,7 +167,7 @@ a {
 }
 
 .hero-overlay {
-  background: linear-gradient(to top, rgba(9, 14, 18, 0.66), rgba(9, 14, 18, 0.18) 45%, rgba(9, 14, 18, 0.22));
+  background: rgba(9, 14, 18, 0.35);
 }
 
 .hero-content {
