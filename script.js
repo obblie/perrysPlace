@@ -13,6 +13,9 @@ const heroImage = document.getElementById("heroImage");
 const fallback = document.getElementById("galleryFallback");
 const prevBtn = document.querySelector(".carousel-btn.prev");
 const nextBtn = document.querySelector(".carousel-btn.next");
+const revealEmailBtn = document.getElementById("revealEmailBtn");
+const revealedEmail = document.getElementById("revealedEmail");
+const revealedEmailLink = document.getElementById("revealedEmailLink");
 
 async function loadImageList() {
   // Preferred: explicit manifest created at build/content stage.
@@ -131,8 +134,42 @@ function bindCarouselEvents() {
   });
 }
 
+function bindEmailReveal() {
+  if (!revealEmailBtn || !revealedEmail || !revealedEmailLink) return;
+
+  revealEmailBtn.addEventListener("click", () => {
+    const user = "you";
+    const domain = "example.com";
+    const email = `${user}@${domain}`;
+
+    revealedEmailLink.href = `mailto:${email}`;
+    revealedEmailLink.textContent = email;
+    revealedEmail.hidden = false;
+    revealEmailBtn.hidden = true;
+  });
+}
+
+function initListingMap() {
+  const mapEl = document.getElementById("listingMap");
+  if (!mapEl || typeof window.L === "undefined") return;
+
+  const coords = [40.6772463, -73.9756434];
+  const map = window.L.map(mapEl, { scrollWheelZoom: false }).setView(coords, 16);
+
+  window
+    .L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors",
+    })
+    .addTo(map);
+
+  window.L.marker(coords).addTo(map).bindPopup("Perry's Place<br>111 St. Johns Place, Brooklyn, NY").openPopup();
+  window.addEventListener("resize", () => map.invalidateSize());
+}
+
 async function init() {
   document.getElementById("year").textContent = String(new Date().getFullYear());
+  bindEmailReveal();
+  initListingMap();
 
   state.images = await loadImageList();
   if (!state.images.length) {

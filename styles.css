@@ -457,9 +457,18 @@ textarea:focus-visible {
 }
 
 .map-placeholder {
-  background:
-    linear-gradient(160deg, rgba(29, 95, 86, 0.18), rgba(255, 255, 255, 0.7)),
-    repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03) 10px, rgba(255, 255, 255, 0.08) 10px, rgba(255, 255, 255, 0.08) 20px);
+  display: grid;
+  gap: 0.65rem;
+  align-content: start;
+}
+
+.listing-map {
+  width: 100%;
+  height: clamp(260px, 38vw, 360px);
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--line) 72%, transparent 28%);
+  overflow: hidden;
+  background: #dfe7ef;
 }
 
 .map-placeholder p {
@@ -488,6 +497,22 @@ textarea:focus-visible {
 .inquiry-form {
   display: grid;
   gap: 0.55rem;
+}
+
+.contact-email-reveal {
+  display: grid;
+  align-content: start;
+  gap: 0.8rem;
+}
+
+.contact-email-reveal p {
+  margin: 0;
+}
+
+.revealed-email a {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 .inquiry-form label {

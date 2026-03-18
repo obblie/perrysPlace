@@ -11,6 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -135,7 +136,7 @@
               <dl class="spec-list">
                 <div><dt>Unit Type</dt><dd>Furnished Studio</dd></div>
                 <div><dt>Building</dt><dd>Pre-War Walkup (4th Floor)</dd></div>
-                <div><dt>Base Rate</dt><dd>$149 / Day</dd></div>
+                <div><dt>Base Rate</dt><dd>$149 / Day | $1k/week</dd></div>
                 <div><dt>Utilities</dt><dd>Included</dd></div>
               </dl>
             </article>
@@ -170,10 +171,10 @@
                 Caribbean food scene.
               </p>
             </article>
-            <aside class="card map-placeholder" aria-label="Map placeholder">
-              <h3>Map Placeholder</h3>
-              <!-- Replace with embedded map or location image in next stage -->
-              <p>Crown Heights, Brooklyn, NY</p>
+            <aside class="card map-placeholder" aria-label="Location map">
+              <h3>Property Map</h3>
+              <div id="listingMap" class="listing-map" role="region" aria-label="Map of 111 St. Johns Place"></div>
+              <p>111 St. Johns Place, Brooklyn, NY</p>
               <span>Transit-rich, walkable, and park-adjacent</span>
             </aside>
           </div>
@@ -191,19 +192,13 @@
                 Share your preferred dates and duration. We can confirm fit, discuss terms, and finalize your stay.
               </p>
             </div>
-            <form class="inquiry-form" action="#" method="post" aria-label="Inquiry form">
-              <!-- Wire this form to your preferred contact workflow later -->
-              <label for="name">Name</label>
-              <input id="name" name="name" type="text" placeholder="Your full name" />
-
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="you@example.com" />
-
-              <label for="message">Message</label>
-              <textarea id="message" name="message" rows="4" placeholder="Dates, duration, and questions"></textarea>
-
-              <button class="btn btn-primary" type="submit">Send Inquiry</button>
-            </form>
+            <div class="contact-email-reveal" aria-label="Contact email">
+              <p>Prefer email? Reveal the address below.</p>
+              <button id="revealEmailBtn" class="btn btn-primary" type="button">Click to Reveal Email</button>
+              <p id="revealedEmail" class="revealed-email" hidden aria-live="polite">
+                <a id="revealedEmailLink" href="#" rel="noopener">you@example.com</a>
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -217,6 +212,7 @@
       </div>
     </footer>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
     <script src="script.js" defer></script>
   </body>
 </html>
