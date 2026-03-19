@@ -3,23 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Perry's Place apartment listing in Crown Heights, Brooklyn." />
-    <title>Perry's Place | Crown Heights, Brooklyn</title>
+    <meta name="description" content="Perry's Apartment listing in Crown Heights, Brooklyn." />
+    <title>Perry's Apartment | Crown Heights, Brooklyn</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" href="data:," />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="gate-locked">
     <a class="skip-link" href="#main">Skip to content</a>
+    <section id="passwordGate" class="password-gate" aria-label="Password access">
+      <div class="password-card">
+        <p class="eyebrow">Private Listing</p>
+        <h1>Enter Password</h1>
+        <p class="password-copy">This listing is currently protected.</p>
+        <form id="passwordForm" class="password-form" autocomplete="off" novalidate>
+          <label for="gatePassword">Password</label>
+          <input id="gatePassword" name="password" type="password" placeholder="Enter password" />
+          <button id="passwordUnlockBtn" class="btn btn-primary" type="submit">Unlock</button>
+          <p id="passwordError" class="password-error" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <div id="siteContent" aria-hidden="true" hidden>
 
     <header class="topbar" aria-label="Primary navigation">
       <div class="container topbar-inner">
-        <a class="brand" href="#hero">Perry's Place</a>
+        <a class="brand" href="#hero">Perry's Apartment</a>
         <nav class="nav-links" aria-label="Section navigation">
           <a href="#gallery">Gallery</a>
           <a href="#overview">Overview</a>
@@ -32,17 +48,17 @@
     <main id="main">
       <section id="hero" class="hero" aria-labelledby="hero-title">
         <div class="hero-image-wrap">
-          <img id="heroImage" class="hero-image" alt="Perry's Place featured image" loading="eager" />
+          <img id="heroImage" class="hero-image" alt="Perry's Apartment featured image" loading="eager" />
           <div class="hero-overlay"></div>
         </div>
         <div class="container hero-content">
           <p class="eyebrow">Furnished Studio | Crown Heights, Brooklyn</p>
-          <h1 id="hero-title">Perry's Place</h1>
+          <h1 id="hero-title">Perry's Apartment</h1>
           <!-- Replace this headline/subheadline with final marketing copy -->
           <p class="hero-headline">Bright top-floor studio with exposed brick, high ceilings, and a newly renovated kitchen.</p>
           <p class="hero-subheadline">$149/day with flexible duration options available upon request - Price negotiable for longer stays.</p>
           <div class="hero-cta-row">
-            <a class="btn btn-primary" href="#contact">Schedule a Tour</a>
+            <a class="btn btn-primary" href="#contact">Contact Me</a>
             <a class="btn btn-secondary" href="#gallery">View Photos</a>
           </div>
           <ul class="hero-stats" aria-label="Key property details">
@@ -136,7 +152,7 @@
               <dl class="spec-list">
                 <div><dt>Unit Type</dt><dd>Furnished Studio</dd></div>
                 <div><dt>Building</dt><dd>Pre-War Walkup (4th Floor)</dd></div>
-                <div><dt>Base Rate</dt><dd>$149/Day | $1k/week</dd></div>
+                <div><dt>Base Rate</dt><dd>$149/Day or <span class="price-accent">$1k/week</span></dd></div>
                 <div><dt>Utilities</dt><dd>Included</dd></div>
               </dl>
             </article>
@@ -173,8 +189,13 @@
             </article>
             <aside class="card map-placeholder" aria-label="Location map">
               <h3>Property Map</h3>
-              <div id="listingMap" class="listing-map" role="region" aria-label="Map of 111 St. Johns Place"></div>
-              <p>111 St. Johns Place, Brooklyn, NY</p>
+              <div
+                id="listingMap"
+                class="listing-map"
+                role="region"
+                aria-label="Map of St. John's Place between Rogers Avenue and Nostrand Avenue"
+              ></div>
+              <p>St. John's Pl between Rogers Ave & Nostrand Ave</p>
               <span>Transit-rich, walkable, and park-adjacent</span>
             </aside>
           </div>
@@ -185,19 +206,18 @@
         <div class="container">
           <div class="contact-panel">
             <div>
-              <p class="eyebrow">Inquire Now</p>
-              <h2 id="contact-title">Schedule a Tour or Request Availability</h2>
+              <h2 id="contact-title">Get in Touch</h2>
               <p>
-                <!-- Replace with final CTA copy -->
-                Share your preferred dates and duration. We can confirm fit, discuss terms, and finalize your stay.
+                Please send me an email with your preferred dates and a little bit about yourself. I usually respond within 24 hours.
               </p>
             </div>
             <div class="contact-email-reveal" aria-label="Contact email">
-              <p>Prefer email? Reveal the address below.</p>
-              <button id="revealEmailBtn" class="btn btn-primary" type="button">Click to Reveal Email</button>
-              <p id="revealedEmail" class="revealed-email" hidden aria-live="polite">
-                <a id="revealedEmailLink" href="#" rel="noopener">pcrowell11@gmail.com</a>
-              </p>
+              <div class="email-reveal-stage">
+                <button id="revealEmailBtn" class="btn btn-primary" type="button">Click to Reveal Email</button>
+                <p id="revealedEmail" class="revealed-email" aria-live="polite" aria-hidden="true">
+                  <a id="revealedEmailLink" href="#" rel="noopener">pcrowell11@gmail.com</a>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -206,13 +226,14 @@
 
     <footer class="footer">
       <div class="container footer-inner">
-        <p>&copy; <span id="year"></span> Perry's Place</p>
+        <p>&copy; <span id="year"></span> Perry's Apartment</p>
         <!-- Replace with final listing/license/contact footer details -->
         <p>Crown Heights, Brooklyn | Owner/landlord listing</p>
       </div>
     </footer>
+    </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-    <script src="script.js" defer></script>
+    <script src="script.js?v=20260318e" defer></script>
   </body>
 </html>

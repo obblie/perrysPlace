@@ -1,6 +1,10 @@
 const IMAGE_EXT = /\.(avif|webp|png|jpe?g|gif)$/i;
 const AUTO_ADVANCE_MS = 7000;
 let autoAdvanceTimer = null;
+const ACCESS_PASSWORD = "jupiter";
+const ACCESS_SESSION_KEY = "perrys_apartment_access_granted";
+let accessGrantedFallback = false;
+let appInitialized = false;
 
 const state = {
   images: [],
@@ -18,6 +22,123 @@ const nextBtn = document.querySelector(".carousel-btn.next");
 const revealEmailBtn = document.getElementById("revealEmailBtn");
 const revealedEmail = document.getElementById("revealedEmail");
 const revealedEmailLink = document.getElementById("revealedEmailLink");
+const passwordGate = document.getElementById("passwordGate");
+const siteContent = document.getElementById("siteContent");
+const passwordForm = document.getElementById("passwordForm");
+const gatePasswordInput = document.getElementById("gatePassword");
+const passwordError = document.getElementById("passwordError");
+
+function unlockSite() {
+  if (passwordGate) passwordGate.hidden = true;
+  if (siteContent) {
+    siteContent.hidden = false;
+    siteContent.setAttribute("aria-hidden", "false");
+  }
+  document.body.classList.remove("gate-locked");
+}
+
+function lockSite() {
+  if (passwordGate) passwordGate.hidden = false;
+  if (siteContent) {
+    siteContent.hidden = true;
+    siteContent.setAttribute("aria-hidden", "true");
+  }
+  document.body.classList.add("gate-locked");
+}
+
+function hasSessionAccess() {
+  try {
+    return window.sessionStorage.getItem(ACCESS_SESSION_KEY) === "true";
+  } catch {
+    return accessGrantedFallback;
+  }
+}
+
+function setSessionAccessGranted() {
+  accessGrantedFallback = true;
+  try {
+    window.sessionStorage.setItem(ACCESS_SESSION_KEY, "true");
+  } catch {
+    // Storage unavailable (for example some local-file contexts); fallback flag is used.
+  }
+}
+
+function getPasswordFromUrl() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const value = params.get("password");
+    return value ? value.trim() : "";
+  } catch {
+    return "";
+  }
+}
+
+function clearPasswordFromUrl() {
+  try {
+    const url = new URL(window.location.href);
+    url.searchParams.delete("password");
+    window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+  } catch {
+    // Ignore if URL APIs are unavailable.
+  }
+}
+
+function initPasswordGate(onUnlock) {
+  if (!passwordGate || !passwordForm || !gatePasswordInput || !passwordError) {
+    onUnlock();
+    return;
+  }
+
+  const passwordFromUrl = getPasswordFromUrl();
+  if (passwordFromUrl) {
+    gatePasswordInput.value = passwordFromUrl;
+    if (passwordFromUrl.toLowerCase() === ACCESS_PASSWORD.toLowerCase()) {
+      setSessionAccessGranted();
+      passwordError.textContent = "";
+      unlockSite();
+      clearPasswordFromUrl();
+      onUnlock();
+      return;
+    }
+  }
+
+  if (hasSessionAccess()) {
+    unlockSite();
+    onUnlock();
+    return;
+  }
+
+  lockSite();
+  gatePasswordInput.focus();
+
+  const tryUnlock = (candidate) => {
+    const entered = (candidate ?? gatePasswordInput.value).trim();
+    if (!entered) {
+      passwordError.textContent = "Please enter a password.";
+      return;
+    }
+
+    if (entered.toLowerCase() === ACCESS_PASSWORD.toLowerCase()) {
+      setSessionAccessGranted();
+      passwordError.textContent = "";
+      unlockSite();
+      clearPasswordFromUrl();
+      onUnlock();
+      return;
+    }
+
+    passwordError.textContent = "Incorrect password. Please try again.";
+  };
+
+  passwordForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    tryUnlock();
+  });
+
+  if (passwordFromUrl) {
+    passwordError.textContent = "URL password is incorrect. Please enter it manually.";
+  }
+}
 
 async function loadImageList() {
   // Preferred: explicit manifest created at build/content stage.
@@ -62,7 +183,7 @@ function renderCarousel() {
 
     const img = document.createElement("img");
     img.src = src;
-    img.alt = `Perry's Place photo ${index + 1}`;
+    img.alt = `Perry's Apartment photo ${index + 1}`;
     img.loading = index === 0 ? "eager" : "lazy";
     slide.append(img);
     track.append(slide);
@@ -164,6 +285,7 @@ function startAutoAdvance() {
 
 function bindEmailReveal() {
   if (!revealEmailBtn || !revealedEmail || !revealedEmailLink) return;
+  const revealWrap = revealEmailBtn.closest(".contact-email-reveal");
 
   revealEmailBtn.addEventListener("click", () => {
     const user = "pcrowell11";
@@ -172,17 +294,25 @@ function bindEmailReveal() {
 
     revealedEmailLink.href = `mailto:${email}`;
     revealedEmailLink.textContent = email;
-    revealedEmail.hidden = false;
-    revealEmailBtn.hidden = true;
+    revealedEmail.setAttribute("aria-hidden", "false");
+    if (revealWrap) revealWrap.classList.add("is-revealed");
   });
 }
 
 function initListingMap() {
   const mapEl = document.getElementById("listingMap");
   if (!mapEl || typeof window.L === "undefined") return;
+  if (mapEl.dataset.mapInitialized === "true") return;
+  if (mapEl._leaflet_id) return;
 
-  const coords = [40.6772463, -73.9756434];
-  const map = window.L.map(mapEl, { scrollWheelZoom: false }).setView(coords, 16);
+  // Midpoint on St. John's Place between Rogers Ave and Nostrand Ave.
+  const coords = [40.6716534, -73.9516422];
+  let map;
+  try {
+    map = window.L.map(mapEl, { scrollWheelZoom: false }).setView(coords, 16);
+  } catch {
+    return;
+  }
 
   window
     .L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -190,11 +320,18 @@ function initListingMap() {
     })
     .addTo(map);
 
-  window.L.marker(coords).addTo(map).bindPopup("Perry's Place<br>764 St. Johns Place, Brooklyn, NY").openPopup();
+  window
+    .L.marker(coords)
+    .addTo(map)
+    .bindPopup("Perry's Apartment<br>St. John's Place between Rogers Ave and Nostrand Ave, Brooklyn")
+    .openPopup();
   window.addEventListener("resize", () => map.invalidateSize());
+  mapEl.dataset.mapInitialized = "true";
 }
 
 async function init() {
+  if (appInitialized) return;
+  appInitialized = true;
   document.getElementById("year").textContent = String(new Date().getFullYear());
   bindEmailReveal();
   initListingMap();
@@ -214,4 +351,4 @@ async function init() {
   startAutoAdvance();
 }
 
-init();
+initPasswordGate(init);

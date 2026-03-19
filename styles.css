@@ -31,8 +31,71 @@ body {
   line-height: 1.6;
 }
 
+body.gate-locked {
+  overflow: hidden;
+}
+
+body.gate-locked #siteContent {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 main {
   overflow-x: clip;
+}
+
+.password-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background:
+    linear-gradient(165deg, rgba(13, 21, 30, 0.98), rgba(9, 14, 20, 1)),
+    radial-gradient(circle at 10% -10%, rgba(255, 255, 255, 0.08), transparent 30%);
+}
+
+.password-gate[hidden] {
+  display: none !important;
+}
+
+.password-card {
+  width: min(460px, 92vw);
+  border-radius: 18px;
+  padding: clamp(1.15rem, 2.5vw, 1.8rem);
+  background: color-mix(in srgb, #ffffff 90%, #f0ece6 10%);
+  border: 1px solid color-mix(in srgb, var(--line) 74%, transparent 26%);
+  box-shadow: var(--shadow);
+}
+
+.password-card h1 {
+  margin: 0 0 0.35rem;
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.password-copy {
+  margin: 0;
+  color: var(--muted);
+}
+
+.password-form {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.password-form label {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.password-error {
+  margin: 0;
+  min-height: 1.2rem;
+  font-size: 0.88rem;
+  color: #b91c1c;
 }
 
 img {
@@ -165,7 +228,7 @@ a {
   object-position: center;
   filter: saturate(1.07);
   transform-origin: center;
-  animation: heroKenBurns 24s ease-in-out infinite alternate;
+  animation: heroKenBurns 7s ease-in-out infinite alternate;
   will-change: transform;
 }
 
@@ -330,6 +393,7 @@ textarea:focus-visible {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 4;
   border: 1px solid rgba(255, 255, 255, 0.5);
   background: rgba(17, 24, 31, 0.55);
   color: #fff;
@@ -469,6 +533,11 @@ textarea:focus-visible {
   font-weight: 700;
 }
 
+.price-accent {
+  color: #c62828;
+  font-weight: 800;
+}
+
 .map-placeholder {
   display: grid;
   gap: 0.65rem;
@@ -513,19 +582,55 @@ textarea:focus-visible {
 }
 
 .contact-email-reveal {
-  display: grid;
-  align-content: start;
-  gap: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.9rem;
 }
 
 .contact-email-reveal p {
   margin: 0;
 }
 
+.email-reveal-stage {
+  position: relative;
+  width: 100%;
+  min-height: 3.4rem;
+  display: grid;
+  place-items: center;
+}
+
+#revealEmailBtn {
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
 .revealed-email a {
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 0.18em;
+}
+
+.revealed-email {
+  position: absolute;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.contact-email-reveal.is-revealed #revealEmailBtn {
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+}
+
+.contact-email-reveal.is-revealed .revealed-email {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .inquiry-form label {
