@@ -253,10 +253,6 @@ a {
   padding: clamp(5rem, 16vw, 11rem) 0 clamp(2.5rem, 7vw, 4rem);
 }
 
-.hero-copy {
-  max-width: 56ch;
-}
-
 .hero .eyebrow {
   display: inline-block;
   margin-bottom: 0.7rem;
@@ -706,109 +702,16 @@ textarea {
 
   .hero-content {
     position: absolute;
-    inset: 0;
+    top: 50%;
     left: 50%;
     width: var(--container);
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    transform: translate(-50%, -50%);
     z-index: 2;
-    padding: clamp(3.4rem, 8vh, 5.6rem) 0 clamp(1.1rem, 3.4vh, 2rem);
-  }
-
-  .hero-copy {
-    max-width: 42ch;
-  }
-
-  .hero-cta-row {
-    margin-top: auto;
-  }
-
-  .hero-stats {
-    margin-top: 0.9rem;
+    padding: 0;
   }
 }
 
 @media (max-width: 500px) {
-  .hero {
-    min-height: auto;
-    padding-top: 68vh;
-  }
-
-  .hero::after {
-    display: none;
-  }
-
-  .hero-image-wrap {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: auto;
-    height: 68vh;
-  }
-
-  .hero-overlay {
-    background: linear-gradient(
-      to bottom,
-      rgba(8, 12, 16, 0.42) 0%,
-      rgba(8, 12, 16, 0.58) 48%,
-      rgba(8, 12, 16, 0.24) 100%
-    );
-  }
-
-  .hero-content {
-    position: static;
-    transform: none;
-    width: var(--container);
-    margin: 0 auto;
-    padding: 0 0 1.1rem;
-    display: block;
-    color: var(--text);
-  }
-
-  .hero-copy {
-    position: absolute;
-    top: auto;
-    bottom: clamp(1rem, 3vh, 1.9rem);
-    left: 50%;
-    transform: translateX(-50%);
-    width: var(--container);
-    max-width: 45ch;
-    z-index: 3;
-    color: #f8f8f8;
-    text-shadow: 0 3px 20px rgba(8, 12, 16, 0.55);
-  }
-
-  .hero-copy .hero-headline {
-    margin-top: 0.6rem;
-  }
-
-  .hero-copy .hero-subheadline {
-    margin-top: 0.45rem;
-    margin-bottom: 0;
-    font-size: clamp(1rem, 5vw, 1.25rem);
-    line-height: 1.35;
-  }
-
-  .hero-copy .hero-subheadline {
-    color: #eef3f7;
-  }
-
-  .hero-copy .hero-headline {
-    color: #f8f8f8;
-  }
-
-  .hero-cta-row {
-    margin-top: 0.35rem;
-  }
-
-  .hero .btn-secondary {
-    background: #f4f4f4;
-    color: #24313a;
-    border-color: #c6cdd3;
-  }
-
   .thumb {
     width: 3.2rem;
     height: 2.3rem;
@@ -816,19 +719,6 @@ textarea {
 
   .hero-stats {
     grid-template-columns: 1fr;
-  }
-
-  .hero-stats li {
-    background: #f4f4f4;
-    border-color: #c6cdd3;
-  }
-
-  .hero-stats span {
-    color: #5a6873;
-  }
-
-  .hero-stats strong {
-    color: #1e2a33;
   }
 }
 
