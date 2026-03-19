@@ -731,6 +731,46 @@ textarea {
 }
 
 @media (max-width: 500px) {
+  .hero {
+    min-height: auto;
+    padding-top: 62vh;
+  }
+
+  .hero::after {
+    display: none;
+  }
+
+  .hero-image-wrap {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    height: 62vh;
+  }
+
+  .hero-content {
+    position: static;
+    transform: none;
+    width: var(--container);
+    margin: 0 auto;
+    padding: 0 0 1.1rem;
+    display: block;
+  }
+
+  .hero-copy {
+    position: absolute;
+    top: 31vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--container);
+    max-width: 45ch;
+    z-index: 3;
+  }
+
+  .hero-cta-row {
+    margin-top: 0.35rem;
+  }
+
   .thumb {
     width: 3.2rem;
     height: 2.3rem;
