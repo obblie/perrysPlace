@@ -733,7 +733,7 @@ textarea {
 @media (max-width: 500px) {
   .hero {
     min-height: auto;
-    padding-top: 62vh;
+    padding-top: 68vh;
   }
 
   .hero::after {
@@ -745,7 +745,7 @@ textarea {
     left: 0;
     right: 0;
     bottom: auto;
-    height: 62vh;
+    height: 68vh;
   }
 
   .hero-overlay {
@@ -769,14 +769,26 @@ textarea {
 
   .hero-copy {
     position: absolute;
-    top: 31vh;
+    top: auto;
+    bottom: clamp(1rem, 3vh, 1.9rem);
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     width: var(--container);
     max-width: 45ch;
     z-index: 3;
     color: #f8f8f8;
     text-shadow: 0 3px 20px rgba(8, 12, 16, 0.55);
+  }
+
+  .hero-copy .hero-headline {
+    margin-top: 0.6rem;
+  }
+
+  .hero-copy .hero-subheadline {
+    margin-top: 0.45rem;
+    margin-bottom: 0;
+    font-size: clamp(1rem, 5vw, 1.25rem);
+    line-height: 1.35;
   }
 
   .hero-copy .hero-subheadline {
