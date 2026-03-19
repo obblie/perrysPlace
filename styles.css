@@ -164,10 +164,23 @@ a {
   object-fit: cover;
   object-position: center;
   filter: saturate(1.07);
+  transform-origin: center;
+  animation: heroKenBurns 24s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 .hero-overlay {
   background: rgba(9, 14, 18, 0.35);
+}
+
+@keyframes heroKenBurns {
+  0% {
+    transform: scale(1.03) translate3d(0%, 0%, 0);
+  }
+
+  100% {
+    transform: scale(1.1) translate3d(-1.1%, -0.8%, 0);
+  }
 }
 
 .hero-content {
@@ -585,5 +598,11 @@ textarea {
 
   .hero-stats {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-image {
+    animation: none;
   }
 }
