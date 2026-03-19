@@ -226,7 +226,15 @@ function updateCarousel() {
   });
 
   if (state.images[state.current]) {
-    heroImage.src = state.images[state.current];
+    const currentSrc = state.images[state.current];
+    let heroSrc = currentSrc;
+
+    if (currentSrc.includes("gallery-07")) {
+      const fallbackSrc = state.images.find((src) => !src.includes("gallery-07"));
+      if (fallbackSrc) heroSrc = fallbackSrc;
+    }
+
+    heroImage.src = heroSrc;
   }
 }
 
