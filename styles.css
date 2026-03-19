@@ -696,6 +696,15 @@ textarea {
 }
 
 @media (max-width: 500px) {
+  .hero {
+    min-height: min(88vh, 740px);
+    align-items: center;
+  }
+
+  .hero-content {
+    padding: clamp(4.2rem, 16vh, 7rem) 0 clamp(3.2rem, 12vh, 5rem);
+  }
+
   .thumb {
     width: 3.2rem;
     height: 2.3rem;
