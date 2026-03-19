@@ -166,8 +166,8 @@ function bindEmailReveal() {
   if (!revealEmailBtn || !revealedEmail || !revealedEmailLink) return;
 
   revealEmailBtn.addEventListener("click", () => {
-    const user = "you";
-    const domain = "example.com";
+    const user = "pcrowell11";
+    const domain = "gmail.com";
     const email = `${user}@${domain}`;
 
     revealedEmailLink.href = `mailto:${email}`;
@@ -190,7 +190,7 @@ function initListingMap() {
     })
     .addTo(map);
 
-  window.L.marker(coords).addTo(map).bindPopup("Perry's Place<br>111 St. Johns Place, Brooklyn, NY").openPopup();
+  window.L.marker(coords).addTo(map).bindPopup("Perry's Place<br>764 St. Johns Place, Brooklyn, NY").openPopup();
   window.addEventListener("resize", () => map.invalidateSize());
 }
 
